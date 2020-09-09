@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=yes"/>
+    <title>地图导览</title>
+    <link rel="stylesheet" href="FMPM_CommonMap/css/iconfont/iconfont.css">
+    <!-- build:css -->
+    <!-- 模块化组件中所需的css -->
+    <link rel="stylesheet" href="FMPM_CommonMap/css/style.css">
+    <!-- 模块化内置layer.js依赖的主题所需的css -->
+    <link rel="stylesheet" href="FMPM_CommonMap/lib/theme/default/layer.css">
+    <!-- endbuild -->
+
+    <script type = "text/javascript">
+        (function() {
+          window.zhuge = window.zhuge || [];
+          window.zhuge.methods = "_init identify track getDid getSid getKey setSuperProperty setUserProperties setWxProperties setPlatform setUTM".split(" ");
+          window.zhuge.factory = function(b) {
+            return function() {
+              var a = Array.prototype.slice.call(arguments);
+              a.unshift(b);
+              window.zhuge.push(a);
+              return window.zhuge;
+            }
+          };
+          for (var i = 0; i < window.zhuge.methods.length; i++) {
+            var key = window.zhuge.methods[i];
+            window.zhuge[key] = window.zhuge.factory(key);
+          }
+          window.zhuge.load = function(b, x) {
+            if (!document.getElementById("zhuge-js")) {
+              var a = document.createElement("script");
+              var verDate = new Date();
+              var verStr = verDate.getFullYear().toString() + verDate.getMonth().toString() + verDate.getDate().toString();
+      
+              a.type = "text/javascript";
+              a.id = "zhuge-js";
+              a.async = !0;
+              a.src = "https://datain.longfor.com/zhuge.js?v=" + verStr;
+              a.onerror = function() {
+                window.zhuge.identify = window.zhuge.track = function(ename, props, callback) {
+                  if(callback && Object.prototype.toString.call(callback) === '[object Function]') {
+                    callback();
+                  } else if (Object.prototype.toString.call(props) === '[object Function]') {
+                    props();
+                  }
+                };
+              };
+              var c = document.getElementsByTagName("script")[0];
+              c.parentNode.insertBefore(a, c);
+              window.zhuge._init(b, x)
+            }
+          };
+          window.zhuge.load('53e50860089f43e39445d38f348a6eba', { //配置应用的AppKey
+            superProperty: { //全局的事件属性(选填)
+              '应用名称': '诸葛io'
+            },
+            adTrack: false,//广告监测开关，默认为false
+            autoTrack: false,
+            //启用全埋点采集（选填，默认false）
+            singlePage: false //是否是单页面应用（SPA），启用autoTrack后生效（选填，默认false）
+          });
+        })();
+      </script>
+</head>
+
+<body>
+    <!--蜂鸟地图-->
+    <div id="fengMap"></div>
+
+    <!-- 引用微信js-sdk -->
+    <script type="text/javascript" src="lib/jweixin-1.4.0.js"></script>
+
+    <!-- <script type="text/javascript" src="lib/vconsole.min.js"></script> -->
+
+    <!-- 引用require.js -->
+    <script type="text/javascript" src="lib/require.js" data-main="FMPM_CommonMap/main.js"></script>
+
+    <!-- 引用其他js -->
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script>
+    // var vConsole = new VConsole();
+    </script>
+
+</body>
+
+</html>
