@@ -405,6 +405,7 @@ input {
     border-radius: 0.08rem !important;
     width: 0.4rem !important;
     z-index: 1;
+    overflow: hidden;
 }
 
 .fm-control-groups .fm-layer-list hr {
@@ -428,7 +429,7 @@ input {
 }
 
 .fm-layer-list {
-    height: 126px !important;
+    max-height: 126px !important;
 }
 
 .fm-layer-list label.active {

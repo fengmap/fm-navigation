@@ -100,10 +100,10 @@ if (typeof requirejs != 'undefined') {
             });
 
              //发现设施组件
-             requirejs(['findFacility'], function (findFacility) {
-                fmp.findFacility = findFacility;
-                fmp.findFacility.createUI();
-            });
+            //  requirejs(['findFacility'], function (findFacility) {
+            //     fmp.findFacility = findFacility;
+            //     fmp.findFacility.createUI();
+            // });
 
             requireReady();
         });
