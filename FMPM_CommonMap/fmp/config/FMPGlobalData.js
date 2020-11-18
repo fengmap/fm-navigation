@@ -27,7 +27,7 @@ fmp.globalData = {
     pickModel: null, //选中模型点数据
     searchLevel: 20, //搜索后聚焦店铺的级别或点击店铺级别
     isMapClick: false, //地图选点
-    fmapID: '10347', //地图ID带版本
+    // fmapID: '10347', //地图ID带版本
     currentMapCenter: null, //当前项目是否需要初始的中心点
     currentMapLevel: null,   //当前项目是否需要初始的级别显示
     //记录起始点数据
@@ -39,6 +39,11 @@ fmp.globalData = {
     isNavigation: true,//是否导航
     isFindFacility: false,//点击的是发现设施
     findFacilityId: null,//点击的发现设施的id
+    currentMapInfo: {
+        appName: '蜂鸟研发SDK_2_0',
+        key: '57c7f309aca507497d028a9c00207cf8',
+        mapId: '10347'
+    }, //url参数
     mapOptions: {
         //渲染dom
         container: document.getElementById('fengMap'),
@@ -57,9 +62,9 @@ fmp.globalData = {
         // 分层加载
         // tile: true,
         //必要，地图应用名称，通过蜂鸟云后台创建
-        appName: '蜂鸟研发SDK_2_0',
+        // appName: '蜂鸟研发SDK_2_0',
         //必要，地图应用密钥，通过蜂鸟云后台获取
-        key: '57c7f309aca507497d028a9c00207cf8',
+        // key: '57c7f309aca507497d028a9c00207cf8',
         //默认地图指北
         defaultControlsPose: 0,
         //默认高亮效果取消
@@ -154,7 +159,7 @@ fmp.globalData = {
     facilityType: [
         {
             name: "卫生间",
-            facilityID: 200002, 
+            facilityID: 200002,
             icon: "iconweishengjian1"
         },
         // {

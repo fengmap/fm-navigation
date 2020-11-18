@@ -410,7 +410,13 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
             .append($("<ul class='search-history-list'></ul>"));
         $("#routesh-cont").append($("<div class='search-history-foot'></div>").append($("<span>清空历史记录</span>")))
 
-        var history = localStorage.getItem('routeSearchList') ? JSON.parse(localStorage.getItem('routeSearchList')) : [];
+        var historyData = localStorage.getItem('routeSearchList') ? JSON.parse(localStorage.getItem('routeSearchList')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var history = historyData[cur_] || [];
+
         var lis = history.map(function (item) {
             return $('<li data-fid="' + item.fid + '">' +
                 '<div class="type-item">' +
@@ -456,14 +462,25 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
 
         // 清空历史记录
         $('#routeSearchHistory .search-history-foot').click(function () {
-            localStorage.removeItem('routeSearchList');
+            var historyData = localStorage.getItem('routeSearchList') ? JSON.parse(localStorage.getItem('routeSearchList')) : {};
+            var appName = fmp.globalData.currentMapInfo.appName;
+            var key = fmp.globalData.currentMapInfo.key;
+            var mapId = fmp.globalData.currentMapInfo.mapId;
+            var cur_ = appName + ';' + key + ';' + mapId;
+            historyData[cur_] = [];
+            localStorage.setItem('routeSearchList', JSON.stringify(historyData))
             $('.search-history-list').html('');
         })
     }
 
     //存储搜索数据，搜索已有的，调换位置
     function historySearch(data) {
-        var historyList = localStorage.getItem('routeSearchList') ? JSON.parse(localStorage.getItem('routeSearchList')) : [];
+        var historyData = localStorage.getItem('routeSearchList') ? JSON.parse(localStorage.getItem('routeSearchList')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var historyList = historyData[cur_] || [];
         var index = historyList.findIndex(function (item) {
             return item.fid == data.fid && item.name == data.name;
         });
@@ -481,7 +498,8 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
                 $('.search-history-list li').eq(10).remove();
             }
         }
-        localStorage.setItem('routeSearchList', JSON.stringify(historyList))
+        historyData[cur_] = historyList;
+        localStorage.setItem('routeSearchList', JSON.stringify(historyData))
     }
 
     //创建路线历史记录UI
@@ -492,7 +510,13 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
             .append($("<ul class='route-history-list'></ul>"));
         $("#routeh-cont").append($("<div class='route-history-foot'></div>").append($("<span>清空历史记录</span>")));
 
-        var history = localStorage.getItem('routeHistory') ? JSON.parse(localStorage.getItem('routeHistory')) : [];
+        var historyData = localStorage.getItem('routeHistory') ? JSON.parse(localStorage.getItem('routeHistory')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var history = historyData[cur_] || [];
+
         var lis = history.map(function (item) {
             if (item.mapID === fmp.globalData.currentFmId) {
                 return $('<li data-stfid="' + item.startFid + '" data-enfid="' + item.endFid + '">' +
@@ -535,14 +559,25 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
 
         // 清空历史记录
         $('#routeHistory .route-history-foot').click(function () {
-            localStorage.removeItem('routeHistory');
+            var historyData = localStorage.getItem('routeHistory') ? JSON.parse(localStorage.getItem('routeHistory')) : {};
+            var appName = fmp.globalData.currentMapInfo.appName;
+            var key = fmp.globalData.currentMapInfo.key;
+            var mapId = fmp.globalData.currentMapInfo.mapId;
+            var cur_ = appName + ';' + key + ';' + mapId;
+            historyData[cur_] = [];
+            localStorage.setItem('routeHistory', JSON.stringify(historyData))
             $('.route-history-list').html('');
         })
     }
 
     //存储路线历史数据，搜索已有的，调换位置
     function history(data) {
-        var historyList = localStorage.getItem('routeHistory') ? JSON.parse(localStorage.getItem('routeHistory')) : [];
+        var historyData = localStorage.getItem('routeHistory') ? JSON.parse(localStorage.getItem('routeHistory')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var historyList = historyData[cur_] || [];
         var index = historyList.findIndex(function (item) {
             return item.startFid == data.startFid && item.endFid == data.endFid && item.startName == data.startName && item.endName == data.endName;
         });
@@ -561,7 +596,8 @@ define('routeTpl', ['tplUtil', 'routeTipTpl'], function (tplUtil, routeTipTpl) {
                 $('.route-history-list li').eq(10).remove();
             }
         }
-        localStorage.setItem('routeHistory', JSON.stringify(historyList))
+        historyData[cur_] = historyList;
+        localStorage.setItem('routeHistory', JSON.stringify(historyData))
     }
 
     //规划路线方法

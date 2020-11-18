@@ -338,7 +338,12 @@ define('searchTpl', function () {
             .append($("<ul class='history-list'></ul>"));
         $(".history-cont").append($("<div class='history-foot'></div>").append($("<span>清空历史记录</span>")))
 
-        var history = localStorage.getItem('searchList') ? JSON.parse(localStorage.getItem('searchList')) : [];
+        var historyData = localStorage.getItem('searchList') ? JSON.parse(localStorage.getItem('searchList')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var history = historyData[cur_] || [];
 
         var lis = history.map(function (item) {
             return $('<li data-fid="' + item.fid + '">' +
@@ -376,14 +381,25 @@ define('searchTpl', function () {
 
         // 清空历史记录
         $('.history-query .history-foot').click(function () {
-            localStorage.removeItem('searchList');
+            var historyData = localStorage.getItem('searchList') ? JSON.parse(localStorage.getItem('searchList')) : {};
+            var appName = fmp.globalData.currentMapInfo.appName;
+            var key = fmp.globalData.currentMapInfo.key;
+            var mapId = fmp.globalData.currentMapInfo.mapId;
+            var cur_ = appName + ';' + key + ';' + mapId;
+            historyData[cur_] = [];
+            localStorage.setItem('searchList', JSON.stringify(historyData))
             $('.history-list').html('');
         })
     }
 
     //存储搜索数据，搜索已有的，调换位置
     function historySearch(data) {
-        var historyList = localStorage.getItem('searchList') ? JSON.parse(localStorage.getItem('searchList')) : [];
+        var historyData = localStorage.getItem('searchList') ? JSON.parse(localStorage.getItem('searchList')) : {};
+        var appName = fmp.globalData.currentMapInfo.appName;
+        var key = fmp.globalData.currentMapInfo.key;
+        var mapId = fmp.globalData.currentMapInfo.mapId;
+        var cur_ = appName + ';' + key + ';' + mapId;
+        var historyList = historyData[cur_] || [];
         var index = historyList.findIndex(function (item) {
             return item.fid == data.fid && item.name == data.name;
         });
@@ -401,7 +417,8 @@ define('searchTpl', function () {
                 $('.history-list li').eq(10).remove();
             }
         }
-        localStorage.setItem('searchList', JSON.stringify(historyList))
+        historyData[cur_] = historyList;
+        localStorage.setItem('searchList', JSON.stringify(historyData))
     }
 
     //清空marker,重置发现设施样式，重置店铺信息

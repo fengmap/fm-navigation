@@ -18,28 +18,25 @@ define('map', ['fmp.globalData', 'searchTpl', 'routeTpl'], function (tmap) {
         options = options || fmp.globalData.mapOptions;
 
         //url判断
-        var obj_ = {
-            container: document.getElementById(element)
-        };
         var query = window.location.search.substring(1);
         var vars = query.split("&");
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split("=");
             if (pair[0] == 'appname') {
-                obj_.appName = pair[1];
+                fmp.globalData.currentMapInfo.appName = decodeURI(pair[1]);
             }
             if (pair[0] == 'appkey') {
-                obj_.key = pair[1];
+                fmp.globalData.currentMapInfo.key = pair[1];
             }
             if (pair[0] == 'map') {
-                obj_.mapId = pair[1];
+                fmp.globalData.currentMapInfo.mapId = pair[1];
             }
             if (pair[0] == 'theme') {
-                obj_.defaultThemeName = pair[1];
+                fmp.globalData.currentMapInfo.defaultThemeName = pair[1];
             }
         }
 
-        var mapOptions = Object.assign({}, options, obj_);
+        var mapOptions = Object.assign({}, options, fmp.globalData.currentMapInfo);
 
         if (fmap_) {
             fmap_.dispose();
@@ -52,7 +49,7 @@ define('map', ['fmp.globalData', 'searchTpl', 'routeTpl'], function (tmap) {
         fmap_.compass.setFgImage('FMPM_CommonMap/images/compass.png');
 
         //打开Fengmap服务器的地图数据和主题
-        fmap_.openMapById(obj_.mapId || fmp.globalData.fmapID, function (error) {
+        fmap_.openMapById(fmp.globalData.currentMapInfo.mapId, function (error) {
             alert('地图加载出错' + error);
             //打印错误信息
             // console.log(error);
