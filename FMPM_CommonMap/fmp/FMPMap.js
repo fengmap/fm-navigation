@@ -329,9 +329,9 @@ define('map', ['fmp.globalData', 'searchTpl', 'routeTpl'], function (tmap) {
 
     //重置右侧工具栏高度
     function resetToolbar() {
-        $('.fm-control-zoom').css('bottom', '15px');
-        $('.fm-control-groups').css('bottom', '85px');
-        $('.fm-control-tool-3d').css('bottom', '302px');
+        $('.fm-control-zoom').css('bottom', '40px');
+        $('.fm-control-groups').css('bottom', '110px');
+        $('.fm-control-tool-3d').css('bottom', '327px');
     }
 
     //点击信息框后调整工具栏高度

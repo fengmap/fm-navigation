@@ -82,7 +82,7 @@ fmp.globalData = {
         //位置x,y的偏移量
         offset: {
             x: -15,
-            y: -85
+            y: -110
         },
         height: 32,
         imgURL: "FMPM_CommonMap/images/"
@@ -92,7 +92,7 @@ fmp.globalData = {
         //位置x,y的偏移量
         offset: {
             x: -15,
-            y: -15
+            y: -40
         },
         imgURL: "FMPM_CommonMap/images/"
     },
@@ -101,7 +101,7 @@ fmp.globalData = {
         //位置x,y的偏移量
         offset: {
             x: -15,
-            y: -240
+            y: -265
         },
         //初始化2D模式
         init2D: true,
